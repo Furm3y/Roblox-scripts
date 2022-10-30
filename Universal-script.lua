@@ -6,9 +6,23 @@ local Window = Library.CreateLib("Furm3y's Universal Scripts", "DarkTheme")
 local Main = Window:NewTab("Main")
 local MainSection = Main:NewSection("Main")
 
+MainSection:NewButton("Close GUI", "Closes the GUI", function()
+    game.TweenService:Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+            ImageTransparency = 1
+        }):Play()
+        wait()
+        game.TweenService:Create(Main, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Size = UDim2.new(0,0,0,0),
+			Position = UDim2.new(0, Main.AbsolutePosition.X + (Main.AbsoluteSize.X / 2), 0, Main.AbsolutePosition.Y + (Main.AbsoluteSize.Y / 2))
+		}):Play()
+        wait(1)
+        ScreenGui:Destroy()
+end)
+
 MainSection:NewButton("Infinite Yield", "FE Admin Commands", function()
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
 end)
+
 MainSection:NewButton("Rejoin Game", "Rejoins the game you are in", function()
     local ts = game:GetService("TeleportService")
     local p = game:GetService("Players").LocalPlayer
